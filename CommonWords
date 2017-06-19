@@ -1,0 +1,44 @@
+import os
+from email.parser import Parser
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+ 
+maindir = "C:\\Users\\Vinod\\Desktop\\Enron\\maildir"
+
+
+def structure_email(file, email_body):
+    with open(inputfile, "r") as f:
+        email_content = f.read()
+    email = Parser().parsestr(email_content)
+# Parsing individual items and creating a list of lists corresponds to a email
+    email_body.append(email.get_payload())
+    
+email_body = []
+ 
+# Iterated through each mail in main directory
+for directory, subdirectory, files in  os.walk(maindir):
+    for file in files:
+        structure_email(os.path.join(directory, file), email_to, email_from, email_body )
+ 
+with open("body_of_email.txt", "w") as f:
+for email_content in email_body:
+    if email_content:
+        f.write(email_content)
+        f.write("\n") 
+ 
+ 
+# Each file for a user text body is parsed and words counts are generated 
+with open("body_of_email.txt", "r") as f:
+    data = f.read()
+
+words= word_tokenize(data)
+
+
+#stopwords eliminates the stop keywords
+useful_words = [word  for word in words if word not in                          stopwords.words('English')]
+ 
+# The frequency of each useful is being generated 
+frequency = nltk.FreqDist(useful_words)
+
+print(frequency.most_common(10))
